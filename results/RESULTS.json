@@ -1,6 +1,6 @@
 {
  "episode": "ep05-double-pendulums",
- "generated": "2026-11-17T04:16:01",
+ "generated": "2026-11-17T04:21:16",
  "placeholders": {
   "N_FAN": {
    "value": 10000,
@@ -73,7 +73,7 @@
    "unit": "s"
   },
   "RUN_WALL_S": {
-   "value": 292.5,
+   "value": 262.3,
    "source": "stages/timing.json (sum of stage wall times)",
    "unit": "s"
   },
@@ -904,7 +904,7 @@
    "n": 72900,
    "T": 60.0,
    "dt": 0.0008333333333333334,
-   "cpu_seconds": 23.631224870681763,
+   "cpu_seconds": 21.744428157806396,
    "frac_flipped": 0.6583127572016461,
    "forbidden_frac": 0.3063648834019204,
    "flips_in_forbidden": 0,
