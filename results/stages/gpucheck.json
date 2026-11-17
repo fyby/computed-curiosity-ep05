@@ -1,0 +1,22 @@
+{
+ "fan": {
+  "distinct_starts_float32": 8,
+  "distinct_at_30s": 8,
+  "split_gpu": 10.0,
+  "split_cpu": 10.5,
+  "track_20cm_median": 11.0,
+  "track_1cm_median": 10.0,
+  "every": 0.5,
+  "dt": 0.0008333333333333334
+ },
+ "map": {
+  "M": 1080,
+  "n_compared": 72900,
+  "same_status": 0.9907270233196159,
+  "flip_time_within_1pct": 0.9633181541560867,
+  "flip_time_within_1pct_of_all": 0.6296982167352537,
+  "early_flips_within_1pct": 0.9999721106648818,
+  "gpu_frac_flipped": 0.6581052812071331,
+  "gpu_flips_in_forbidden": 0
+ }
+}

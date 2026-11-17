@@ -1,0 +1,38 @@
+{
+ "commit": "unknown",
+ "generated": "2026-11-17T01:52:22",
+ "python": "3.14.3",
+ "numpy": "2.5.4",
+ "machine": "arm64",
+ "platform": "macOS-27.2-arm64-arm-64bit-Mach-O",
+ "cpu": "Apple M4",
+ "dt": 0.0004166666666666667,
+ "dt_lyap": 0.0008333333333333334,
+ "seeds": {
+  "dial": 5000201,
+  "lyap": 5000301
+ },
+ "model": {
+  "m1": 1,
+  "m2": 1,
+  "l1": 1,
+  "l2": 1,
+  "g": 9.81
+ },
+ "film_files": {
+  "energy_120.u16": "359d3e75651dd015cd058d21f66a621781039a338d334ee3609d03b4b3e7593a",
+  "energy_150.u16": "a981ceae11231f1da4e34b75751c4db1c290fc2f21405de27337fc3b8e964ba2",
+  "energy_20.u16": "15111e86bde13b05f29610cd3cd41472391cc6170a1504a675fade42093d1e5a",
+  "energy_60.u16": "2e104ed179870e1b32b2ad17f32c393ae12e4480291b516b8e72fe394a0df721",
+  "energy_90.u16": "13b59a147f93eb6c9340f43abce96749f0be687632d3dca337412409580d91b5",
+  "fan.u16": "4edb3d31ffcbd3c84d619fb714d5dabc456f7cc2acc8e9851a4357184ceff05a",
+  "fan_delta.f32": "8d919f78c15e4c8e61b6775e045dac1d7fdc6cc54dd22cdc87364b1e6ce94712",
+  "flipmap_gpu.f32": "6b7d83b0215f7d79b702c8cda55d780cbfd4da174a5024056fff8989716dc819",
+  "friction.u16": "72e9484466c36e5bd42b556297103b636cb03092ec3c01db01e1c8c478c31519",
+  "mini_10.u16": "8f1b7de615bc6acf33d0d53c39f4931549e2b551c36196c8443680947ef09ed5",
+  "mini_2.u16": "4f9e09dbfb8de7666b46ada59d379c96f9913d20aa74be719398a472b0768942",
+  "mini_4.u16": "4d9bb590d128b455429b812f6ed3e480dac732cdcd3488be3a0c36fdc1e077b7",
+  "mini_6.u16": "17c5a8d7d675799b3dded3f410d4b7fe45268dbcd552c9f2912a5230020c391e",
+  "mini_8.u16": "a28edc14524c607b597e66000cd2d4a06b39024cf7892ee5f1db10a08597a894"
+ }
+}

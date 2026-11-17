@@ -1,0 +1,47 @@
+{
+ "V2_modes": {
+  "amp_deg": 1.0,
+  "T": 600.0,
+  "omega_slow_analytic": 2.397199397864086,
+  "omega_fast_analytic": 5.787351298036095,
+  "omega_slow": 2.397068344961025,
+  "omega_fast": 5.784241628207209,
+  "mixed_slow": 2.3971306303351025,
+  "mixed_fast": 5.786439998820765,
+  "period_slow_s": 2.62119572868572,
+  "period_fast_s": 1.0862591349122153,
+  "rel_err_slow": 5.466917069052446e-05,
+  "rel_err_fast": 0.0005373217675487263,
+  "note": "1 deg swings; the small-angle formula is exact only in the limit"
+ },
+ "V1_energy": {
+  "fan_max_err_mgl": 5.332498886900794e-10,
+  "fan_rel": 1.184999752644621e-10,
+  "one_600s_mgl": 1.7480941139069728e-09,
+  "E": 4.499999999999999
+ },
+ "V3_integrator": {
+  "n": 200,
+  "T": 40.0,
+  "dt": 0.0004166666666666667,
+  "agree_1mm_dt_half_median": 14.35,
+  "agree_1mm_dt_half_min": 12.133333333333333,
+  "agree_1mm_dop853_median": 14.458333333333332,
+  "agree_1mm_dop853_min": 12.183333333333334,
+  "split_rk4": 10.1,
+  "split_rk4_half": 10.1,
+  "split_dop853": 10.1,
+  "ks_late_bob_angle_rk4_vs_dop853": 0.014592346089850272,
+  "dop853_nfev": 95669
+ },
+ "V4_lyapunov": {
+  "hero_lambda": 1.4112411769832824,
+  "hero_lambda_alt": 1.4117827598184922,
+  "hero_lambda_last_quarter": 1.4186690955665964,
+  "T": 2000.0,
+  "settings": [
+   "d0 1e-8, tau 0.1 s",
+   "d0 1e-9, tau 0.2 s"
+  ]
+ }
+}
