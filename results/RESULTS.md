@@ -141,6 +141,7 @@
 | MODE_ERR_MAX | 0.000537322 | relative | validate.V2_modes |
 | V3_AGREE_DOP | 14.4583 | s | validate.V3_integrator |
 | V3_AGREE_DT | 14.35 | s | validate.V3_integrator |
+| V3_AGREE_DOP_MIN | 12.1833 | s | validate.V3_integrator |
 | V3_SPLIT_DOP | 10.1 | s | validate.V3_integrator |
 | V3_KS | 0.0145923 |  | validate.V3_integrator |
 | MAP_N_GPU | 1166400 |  | flipmap.M^2 |

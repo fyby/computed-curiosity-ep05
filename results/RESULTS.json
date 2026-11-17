@@ -1,6 +1,6 @@
 {
  "episode": "ep05-double-pendulums",
- "generated": "2026-11-17T02:15:15",
+ "generated": "2026-11-17T02:16:15",
  "placeholders": {
   "N_FAN": {
    "value": 10000,
@@ -694,6 +694,11 @@
   },
   "V3_AGREE_DT": {
    "value": 14.35,
+   "source": "validate.V3_integrator",
+   "unit": "s"
+  },
+  "V3_AGREE_DOP_MIN": {
+   "value": 12.183333333333334,
    "source": "validate.V3_integrator",
    "unit": "s"
   },
