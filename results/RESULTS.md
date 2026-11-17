@@ -157,6 +157,14 @@
 | RESTART_SPLIT_AFTER | 5.05 | s | restart.split_after_restart |
 | RESTART_ROUND_ERR | 0.000264688 | rad or rad/s | restart.max_rounding_error |
 | RESTART_GAP_M | 6.49529e-05 | m | restart.bob_gap_after_rounding_m |
+| SH3_PAIR_TH1_0 | -99.8333 | deg | pair.theta1_deg |
+| SH3_PAIR_FLIP64_0 | 2.5575 | s | pair.flip_cpu64 |
+| SH3_PAIR_FLIP32_0 | 2.558 | s | pair.flip_gpu32 |
+| SH3_PAIR_TH1_1 | -99.5 | deg | pair.theta1_deg |
+| SH3_PAIR_FLIP64_1 | 7.08917 | s | pair.flip_cpu64 |
+| SH3_PAIR_FLIP32_1 | 7.092 | s | pair.flip_gpu32 |
+| SH3_PAIR_TH2 | -15.1667 | deg | pair.theta2_deg |
+| MAP_GRID_STEP_DEG | 0.333333 | deg | pair.grid_step_deg |
 | FRICTION_SPLIT | 19.2833 | s | friction.split_t |
 | FRICTION_C | 0.02 | 1/s | friction.c |
 | GPU_DISTINCT | 8 |  | gpucheck.fan.distinct_starts_float32 |

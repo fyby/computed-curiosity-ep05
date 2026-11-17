@@ -1,6 +1,6 @@
 {
  "episode": "ep05-double-pendulums",
- "generated": "2026-11-17T04:21:16",
+ "generated": "2026-11-17T04:53:26",
  "placeholders": {
   "N_FAN": {
    "value": 10000,
@@ -777,6 +777,46 @@
    "source": "restart.bob_gap_after_rounding_m",
    "unit": "m"
   },
+  "SH3_PAIR_TH1_0": {
+   "value": -99.83333333333334,
+   "source": "pair.theta1_deg",
+   "unit": "deg"
+  },
+  "SH3_PAIR_FLIP64_0": {
+   "value": 2.557499885559082,
+   "source": "pair.flip_cpu64",
+   "unit": "s"
+  },
+  "SH3_PAIR_FLIP32_0": {
+   "value": 2.558000087738037,
+   "source": "pair.flip_gpu32",
+   "unit": "s"
+  },
+  "SH3_PAIR_TH1_1": {
+   "value": -99.5,
+   "source": "pair.theta1_deg",
+   "unit": "deg"
+  },
+  "SH3_PAIR_FLIP64_1": {
+   "value": 7.089166641235352,
+   "source": "pair.flip_cpu64",
+   "unit": "s"
+  },
+  "SH3_PAIR_FLIP32_1": {
+   "value": 7.0920000076293945,
+   "source": "pair.flip_gpu32",
+   "unit": "s"
+  },
+  "SH3_PAIR_TH2": {
+   "value": -15.166666666666673,
+   "source": "pair.theta2_deg",
+   "unit": "deg"
+  },
+  "MAP_GRID_STEP_DEG": {
+   "value": 0.3333333333333333,
+   "source": "pair.grid_step_deg",
+   "unit": "deg"
+  },
   "FRICTION_SPLIT": {
    "value": 19.283333333333335,
    "source": "friction.split_t",
@@ -919,6 +959,7 @@
   "flipmap",
   "friction",
   "restart",
+  "pair",
   "validate",
   "gpucheck"
  ]
