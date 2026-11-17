@@ -1,6 +1,6 @@
 {
  "episode": "ep05-double-pendulums",
- "generated": "2026-11-17T01:57:17",
+ "generated": "2026-11-17T02:15:09",
  "placeholders": {
   "N_FAN": {
    "value": 10000,
@@ -73,7 +73,7 @@
    "unit": "s"
   },
   "RUN_WALL_S": {
-   "value": 257.4,
+   "value": 261.3,
    "source": "stages/timing.json (sum of stage wall times)",
    "unit": "s"
   },
@@ -727,6 +727,26 @@
    "source": "flipmap.T",
    "unit": "s"
   },
+  "RESTART_T": {
+   "value": 5.0,
+   "source": "restart.t_restart",
+   "unit": "s"
+  },
+  "RESTART_SPLIT_AFTER": {
+   "value": 5.050000000000001,
+   "source": "restart.split_after_restart",
+   "unit": "s"
+  },
+  "RESTART_ROUND_ERR": {
+   "value": 0.0002646877202048259,
+   "source": "restart.max_rounding_error",
+   "unit": "rad or rad/s"
+  },
+  "RESTART_GAP_M": {
+   "value": 6.495293540853211e-05,
+   "source": "restart.bob_gap_after_rounding_m",
+   "unit": "m"
+  },
   "FRICTION_SPLIT": {
    "value": 19.283333333333335,
    "source": "friction.split_t",
@@ -868,6 +888,7 @@
   "energy",
   "flipmap",
   "friction",
+  "restart",
   "validate",
   "gpucheck"
  ]

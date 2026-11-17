@@ -1,0 +1,22 @@
+{
+ "t_restart": 5.0,
+ "state": [
+  -2.076940743079632,
+  -1.5971163664885815,
+  -1.9617353122797951,
+  -0.5448040804517236
+ ],
+ "rounded": [
+  -2.077,
+  -1.597,
+  -1.962,
+  -0.545
+ ],
+ "max_rounding_error": 0.0002646877202048259,
+ "bob_gap_after_rounding_m": 6.495293540853211e-05,
+ "split_t": 10.05,
+ "split_after_restart": 5.050000000000001,
+ "T": 40.0,
+ "dt": 0.0004166666666666667,
+ "film": "film/restart.u16 uint16 [frames][2][2] (0 = original, 1 = restarted from rounded values)"
+}

@@ -16,7 +16,7 @@
 | FAN_COVER_20 | 0.70786 | share | fan.coverage_at |
 | FAN_COVER_FULL | 0.709713 | share | mean of fan.coverage over 20-60 s |
 | FAN_FILL_T | 14.8 | s | fan.coverage: first t with >= 90% of the 20-60 s mean |
-| RUN_WALL_S | 257.4 | s | stages/timing.json (sum of stage wall times) |
+| RUN_WALL_S | 261.3 | s | stages/timing.json (sum of stage wall times) |
 | FAN_DETERMINISTIC | True |  | fan.sha256_run1 == run2 |
 | ENERGY_ERR_REL | 1.185e-10 |  | fan.energy_err_rel |
 | ENERGY_ERR_600 | 1.74809e-09 | m g l | validate.V1_energy |
@@ -147,6 +147,10 @@
 | MAP_FRAC_FLIPPED_CPU | 0.658313 | share | flipmap.frac_flipped |
 | MAP_FLIPS_FORBIDDEN_CPU | 0 |  | flipmap.flips_in_forbidden |
 | MAP_T | 60 | s | flipmap.T |
+| RESTART_T | 5 | s | restart.t_restart |
+| RESTART_SPLIT_AFTER | 5.05 | s | restart.split_after_restart |
+| RESTART_ROUND_ERR | 0.000264688 | rad or rad/s | restart.max_rounding_error |
+| RESTART_GAP_M | 6.49529e-05 | m | restart.bob_gap_after_rounding_m |
 | FRICTION_SPLIT | 19.2833 | s | friction.split_t |
 | FRICTION_C | 0.02 | 1/s | friction.c |
 | GPU_DISTINCT | 8 |  | gpucheck.fan.distinct_starts_float32 |

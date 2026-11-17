@@ -12,6 +12,7 @@ usage: python run.py [stage ...] [--force]
   flipmap   E4 CPU part: float64 flip times on a 270 x 270 subsample of the film's 1080 x 1080 GPU grid
                                                                                          -> results/stages/flipmap.json
   friction  E5: the hero fan with a simple friction term (limits card)                   -> results/stages/friction.json
+  restart   E6: Lorenz's rounding redone with our pendulum (state rounded to 3 decimals at 5 s) -> results/stages/restart.json
   gpucheck  V5: GPU float32 (gpu/pend.js) vs CPU float64; needs results/gpu/probe.jsonl (see README)
                                                                                          -> results/stages/gpucheck.json
   results   RESULTS.json, RESULTS.md, run_meta.json
@@ -286,6 +287,33 @@ def stage_friction():
     log(f"friction: split {split}, E {E[2]:.2f} -> {E[-3]:.2f} mgl")
 
 
+def stage_restart():
+    """Lorenz's rounding, redone with our pendulum: run the 120/120 start to 5 s, round the state (angles in rad, angular
+    velocities in rad/s) to 3 decimals, restart, and follow the original and the restarted copy (RK4 in numpy, same dt)."""
+    if done("restart"): return
+    T0, T = 5.0, 40.0
+    def step(y, h):
+        k1 = rhs_shinbrot(0, y); k2 = rhs_shinbrot(0, y + 0.5 * h * k1); k3 = rhs_shinbrot(0, y + 0.5 * h * k2); k4 = rhs_shinbrot(0, y + h * k3)
+        return y + h / 6 * (k1 + 2 * k2 + 2 * k3 + k4)
+    y = np.array([HERO[0] * DEG, HERO[1] * DEG, 0, 0]); n0 = int(round(T0 / DT)); every = int(round(1 / (FPS * DT)))
+    fr = []
+    for k in range(n0):
+        if k % every == 0: fr.append([y[:2], y[:2]])
+        y = step(y, DT)
+    yr = np.round(y, 3); Y = np.stack([y, yr]).ravel()
+    for k in range(n0, int(round(T / DT)) + 1):
+        if k % every == 0: fr.append(Y.reshape(2, 4)[:, :2].copy())
+        Y = step(Y, DT)
+    th = np.array(fr)                       # [frames][2][2]
+    wrap16(th).tofile(FILM / "restart.u16")
+    x, y_ = bob(th); d = np.hypot(x[:, 0] - x[:, 1], y_[:, 0] - y_[:, 1]); t = np.arange(len(th)) / FPS
+    sp = float(t[np.argmax(d > SPLIT_M)])
+    dump(ST / "restart.json", dict(t_restart=T0, state=y.tolist(), rounded=yr.tolist(), max_rounding_error=float(np.abs(yr - y).max()),
+                                   bob_gap_after_rounding_m=float(d[int(T0 * FPS) + 1]), split_t=sp, split_after_restart=sp - T0, T=T, dt=DT,
+                                   film="film/restart.u16 uint16 [frames][2][2] (0 = original, 1 = restarted from rounded values)"))
+    log(f"restart: rounding error {np.abs(yr - y).max():.2e}, split {sp - T0:.2f} s after the restart")
+
+
 # ----------------------------------------------------------------------------------------------- validation
 def rhs_shinbrot(t, y):
     """independent right-hand side (Shinbrot et al. 1992 eqs. B5-B6, mu = 1 + m1/m2 = 2), vectorised over pendulums"""
@@ -392,7 +420,7 @@ def stage_gpucheck():
 
 # ----------------------------------------------------------------------------------------------- results
 def stage_results():
-    S = {n: load(ST / f"{n}.json") for n in ("fan", "dial", "energy", "flipmap", "friction", "validate") if (ST / f"{n}.json").exists()}
+    S = {n: load(ST / f"{n}.json") for n in ("fan", "dial", "energy", "flipmap", "friction", "restart", "validate") if (ST / f"{n}.json").exists()}
     if (ST / "gpucheck.json").exists(): S["gpucheck"] = load(ST / "gpucheck.json")
     P = {}
 
@@ -433,6 +461,9 @@ def stage_results():
     put("V3_SPLIT_DOP", i3["split_dop853"], "validate.V3_integrator", "s"); put("V3_KS", i3["ks_late_bob_angle_rk4_vs_dop853"], "validate.V3_integrator")
     fm = S["flipmap"]; put("MAP_N_GPU", fm["M"] ** 2, "flipmap.M^2"); put("MAP_FRAC_FLIPPED_CPU", fm["frac_flipped"], "flipmap.frac_flipped", "share")
     put("MAP_FLIPS_FORBIDDEN_CPU", fm["flips_in_forbidden"], "flipmap.flips_in_forbidden"); put("MAP_T", fm["T"], "flipmap.T", "s")
+    if "restart" in S:
+        rs = S["restart"]; put("RESTART_T", rs["t_restart"], "restart.t_restart", "s"); put("RESTART_SPLIT_AFTER", rs["split_after_restart"], "restart.split_after_restart", "s")
+        put("RESTART_ROUND_ERR", rs["max_rounding_error"], "restart.max_rounding_error", "rad or rad/s"); put("RESTART_GAP_M", rs["bob_gap_after_rounding_m"], "restart.bob_gap_after_rounding_m", "m")
     if "friction" in S: put("FRICTION_SPLIT", S["friction"]["split_t"], "friction.split_t", "s"); put("FRICTION_C", S["friction"]["c"], "friction.c", "1/s")
     if "gpucheck" in S:
         g = S["gpucheck"]
@@ -459,12 +490,12 @@ def stage_results():
     dump(RES / "run_meta.json", meta); log(f"results: {len(P)} placeholders, commit {commit}")
 
 
-STAGES = dict(fan=stage_fan, dial=stage_dial, energy=stage_energy, flipmap=stage_flipmap, friction=stage_friction,
+STAGES = dict(restart=stage_restart, fan=stage_fan, dial=stage_dial, energy=stage_energy, flipmap=stage_flipmap, friction=stage_friction,
               validate=stage_validate, gpucheck=stage_gpucheck, results=stage_results)
 if __name__ == "__main__":
     args = [a for a in sys.argv[1:] if not a.startswith("--")] or ["all"]
     if args == ["all"]:
-        args = ["fan", "dial", "energy", "flipmap", "friction", "validate", "results"]
+        args = ["fan", "dial", "energy", "flipmap", "friction", "restart", "validate", "results"]
     for a in args:
         t0 = time.time(); skipped = done(a) and a not in ("results", "gpucheck"); STAGES[a](); dt_ = time.time() - t0; log(f"{a} done in {dt_:.0f} s")
         if not skipped and a != "results":
