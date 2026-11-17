@@ -16,6 +16,7 @@
 | FAN_COVER_20 | 0.70786 | share | fan.coverage_at |
 | FAN_COVER_FULL | 0.709713 | share | mean of fan.coverage over 20-60 s |
 | FAN_FILL_T | 14.8 | s | fan.coverage: first t with >= 90% of the 20-60 s mean |
+| RUN_WALL_S | 257.4 | s | stages/timing.json (sum of stage wall times) |
 | FAN_DETERMINISTIC | True |  | fan.sha256_run1 == run2 |
 | ENERGY_ERR_REL | 1.185e-10 |  | fan.energy_err_rel |
 | ENERGY_ERR_600 | 1.74809e-09 | m g l | validate.V1_energy |
