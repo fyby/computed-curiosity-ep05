@@ -458,7 +458,7 @@ def stage_results():
     put("MODE_ERR_MAX", max(m["rel_err_slow"], m["rel_err_fast"]), "validate.V2_modes", "relative")
     i3 = v["V3_integrator"]
     put("V3_AGREE_DOP", i3["agree_1mm_dop853_median"], "validate.V3_integrator", "s"); put("V3_AGREE_DT", i3["agree_1mm_dt_half_median"], "validate.V3_integrator", "s")
-    put("V3_SPLIT_DOP", i3["split_dop853"], "validate.V3_integrator", "s"); put("V3_KS", i3["ks_late_bob_angle_rk4_vs_dop853"], "validate.V3_integrator")
+    put("V3_AGREE_DOP_MIN", i3["agree_1mm_dop853_min"], "validate.V3_integrator", "s"); put("V3_SPLIT_DOP", i3["split_dop853"], "validate.V3_integrator", "s"); put("V3_KS", i3["ks_late_bob_angle_rk4_vs_dop853"], "validate.V3_integrator")
     fm = S["flipmap"]; put("MAP_N_GPU", fm["M"] ** 2, "flipmap.M^2"); put("MAP_FRAC_FLIPPED_CPU", fm["frac_flipped"], "flipmap.frac_flipped", "share")
     put("MAP_FLIPS_FORBIDDEN_CPU", fm["flips_in_forbidden"], "flipmap.flips_in_forbidden"); put("MAP_T", fm["T"], "flipmap.T", "s")
     if "restart" in S:
