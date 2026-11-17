@@ -16,7 +16,7 @@
 | FAN_COVER_20 | 0.70786 | share | fan.coverage_at |
 | FAN_COVER_FULL | 0.709713 | share | mean of fan.coverage over 20-60 s |
 | FAN_FILL_T | 14.8 | s | fan.coverage: first t with >= 90% of the 20-60 s mean |
-| RUN_WALL_S | 261.3 | s | stages/timing.json (sum of stage wall times) |
+| RUN_WALL_S | 292.5 | s | stages/timing.json (sum of stage wall times) |
 | FAN_DETERMINISTIC | True |  | fan.sha256_run1 == run2 |
 | ENERGY_ERR_REL | 1.185e-10 |  | fan.energy_err_rel |
 | ENERGY_ERR_600 | 1.74809e-09 | m g l | validate.V1_energy |
@@ -70,6 +70,11 @@
 | DIAL_HERO_15 | -1 | s | dial.rows[1e-15].hero_t |
 | DIAL_FRAC_15 | 0 | share | dial.rows[1e-15].frac_diverged |
 | DIAL_GAIN_4_TO_12 | 13.0421 | s | dial.rows median(1e-12) - median(1e-4) |
+| MINI_SPLIT_2 | 6.85 | s | dial.films[-2].split_t (1,000-pendulum film fan, 60 fps frames) |
+| MINI_SPLIT_4 | 10.1 | s | dial.films[-4].split_t (1,000-pendulum film fan, 60 fps frames) |
+| MINI_SPLIT_6 | 12.0167 | s | dial.films[-6].split_t (1,000-pendulum film fan, 60 fps frames) |
+| MINI_SPLIT_8 | 14.9333 | s | dial.films[-8].split_t (1,000-pendulum film fan, 60 fps frames) |
+| MINI_SPLIT_10 | 18.05 | s | dial.films[-10].split_t (1,000-pendulum film fan, 60 fps frames) |
 | FLOAT64_ULP_DEG | 2.54444e-14 | deg | dial.float64_ulp_deg |
 | DIAL_N | 1000 |  | dial.n_random |
 | LAMBDA_HERO | 1.41124 | 1/s | validate.V4_lyapunov.hero_lambda |

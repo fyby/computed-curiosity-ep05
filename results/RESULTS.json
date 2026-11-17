@@ -1,6 +1,6 @@
 {
  "episode": "ep05-double-pendulums",
- "generated": "2026-11-17T02:16:15",
+ "generated": "2026-11-17T04:16:01",
  "placeholders": {
   "N_FAN": {
    "value": 10000,
@@ -73,7 +73,7 @@
    "unit": "s"
   },
   "RUN_WALL_S": {
-   "value": 261.3,
+   "value": 292.5,
    "source": "stages/timing.json (sum of stage wall times)",
    "unit": "s"
   },
@@ -340,6 +340,31 @@
   "DIAL_GAIN_4_TO_12": {
    "value": 13.042083333333334,
    "source": "dial.rows median(1e-12) - median(1e-4)",
+   "unit": "s"
+  },
+  "MINI_SPLIT_2": {
+   "value": 6.85,
+   "source": "dial.films[-2].split_t (1,000-pendulum film fan, 60 fps frames)",
+   "unit": "s"
+  },
+  "MINI_SPLIT_4": {
+   "value": 10.1,
+   "source": "dial.films[-4].split_t (1,000-pendulum film fan, 60 fps frames)",
+   "unit": "s"
+  },
+  "MINI_SPLIT_6": {
+   "value": 12.016666666666667,
+   "source": "dial.films[-6].split_t (1,000-pendulum film fan, 60 fps frames)",
+   "unit": "s"
+  },
+  "MINI_SPLIT_8": {
+   "value": 14.933333333333334,
+   "source": "dial.films[-8].split_t (1,000-pendulum film fan, 60 fps frames)",
+   "unit": "s"
+  },
+  "MINI_SPLIT_10": {
+   "value": 18.05,
+   "source": "dial.films[-10].split_t (1,000-pendulum film fan, 60 fps frames)",
    "unit": "s"
   },
   "FLOAT64_ULP_DEG": {
@@ -879,7 +904,7 @@
    "n": 72900,
    "T": 60.0,
    "dt": 0.0008333333333333334,
-   "cpu_seconds": 21.744741201400757,
+   "cpu_seconds": 23.631224870681763,
    "frac_flipped": 0.6583127572016461,
    "forbidden_frac": 0.3063648834019204,
    "flips_in_forbidden": 0,

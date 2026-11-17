@@ -255,27 +255,27 @@
   "-2": {
    "file": "film/mini_2.u16",
    "split_t": 6.85,
-   "frames": 1801
+   "frames": 2161
   },
   "-4": {
    "file": "film/mini_4.u16",
    "split_t": 10.1,
-   "frames": 1801
+   "frames": 2161
   },
   "-6": {
    "file": "film/mini_6.u16",
    "split_t": 12.016666666666667,
-   "frames": 1801
+   "frames": 2161
   },
   "-8": {
    "file": "film/mini_8.u16",
    "split_t": 14.933333333333334,
-   "frames": 1801
+   "frames": 2161
   },
   "-10": {
    "file": "film/mini_10.u16",
    "split_t": 18.05,
-   "frames": 1801
+   "frames": 2161
   }
  }
 }

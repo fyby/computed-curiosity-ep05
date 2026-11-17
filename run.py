@@ -213,7 +213,7 @@ def stage_dial():
     films = {}
     for e in (-2, -4, -6, -8, -10):
         s = fan_states(*HERO, 1000, 10.0 ** e)
-        th, _, _ = run_traj(s, 30.0, DT, FPS, f"mini_{-e}")
+        th, _, _ = run_traj(s, 36.0, DT, FPS, f"mini_{-e}")
         wrap16(th).tofile(FILM / f"mini_{-e}.u16")
         x, y = bob(th); d = np.hypot(x - x[:, :1], y - y[:, :1]).max(1)
         films[str(e)] = dict(file=f"film/mini_{-e}.u16", split_t=float(np.argmax(d > SPLIT_M) / FPS), frames=len(th))
@@ -446,6 +446,8 @@ def stage_results():
         put(f"DIAL_FRAC_{-r['log10']}", r["frac_diverged"], f"dial.rows[1e{r['log10']}].frac_diverged", "share")
     md = {r["log10"]: r["median"] for r in d["rows"]}
     put("DIAL_GAIN_4_TO_12", md[-12] - md[-4], "dial.rows median(1e-12) - median(1e-4)", "s")
+    for k_, v_ in d["films"].items():
+        put(f"MINI_SPLIT_{-int(k_)}", v_["split_t"], f"dial.films[{k_}].split_t (1,000-pendulum film fan, 60 fps frames)", "s")
     put("FLOAT64_ULP_DEG", d["float64_ulp_deg"], "dial.float64_ulp_deg", "deg"); put("DIAL_N", d["n_random"], "dial.n_random")
     put("LAMBDA_HERO", v["V4_lyapunov"]["hero_lambda"], "validate.V4_lyapunov.hero_lambda", "1/s"); put("LAMBDA_HERO_ALT", v["V4_lyapunov"]["hero_lambda_alt"], "validate.V4_lyapunov", "1/s")
     for r in e["lyapunov"]:

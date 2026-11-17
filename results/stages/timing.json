@@ -1,9 +1,9 @@
 {
- "fan": 37.2,
- "dial": 110.6,
- "energy": 80.1,
- "flipmap": 21.7,
+ "fan": 37.6,
+ "dial": 128.2,
+ "energy": 91.1,
+ "flipmap": 23.6,
  "friction": 3.4,
- "validate": 4.4,
- "restart": 3.9
+ "validate": 4.3,
+ "restart": 4.3
 }
