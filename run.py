@@ -12,6 +12,7 @@ usage: python run.py [stage ...] [--force]
   flipmap   E4 CPU part: float64 flip times on a 270 x 270 subsample of the film's 1080 x 1080 GPU grid
                                                                                          -> results/stages/flipmap.json
   friction  E5: the hero fan with a simple friction term (limits card)                   -> results/stages/friction.json
+  pair      Short 3: two neighbouring flip-map starts, 64-bit flip times vs the GPU map -> results/stages/pair.json
   restart   E6: Lorenz's rounding redone with our pendulum (state rounded to 3 decimals at 5 s) -> results/stages/restart.json
   gpucheck  V5: GPU float32 (gpu/pend.js) vs CPU float64; needs results/gpu/probe.jsonl (see README)
                                                                                          -> results/stages/gpucheck.json
@@ -314,6 +315,20 @@ def stage_restart():
     log(f"restart: rounding error {np.abs(yr - y).max():.2e}, split {sp - T0:.2f} s after the restart")
 
 
+def stage_pair():
+    """Short 3: two neighbouring flip-map starts (same theta2, theta1 one grid step apart) whose fates differ, checked in
+    64-bit (dp.c) against the GPU's 32-bit flip times in film/flipmap_gpu.f32 (written by gpucheck)."""
+    if done("pair"): return
+    M, j, ii = 1080, 494, [240, 241]
+    fg = np.fromfile(FILM / "flipmap_gpu.f32", np.float32).reshape(M, M)
+    s = np.zeros((2, 4)); s[:, 0] = [-np.pi + (i + 0.5) * 2 * np.pi / M for i in ii]; s[:, 1] = -np.pi + (j + 0.5) * 2 * np.pi / M
+    inp = CACHE / "pair_in.f64"; s.tofile(inp); dp("flip", inp, 2, 60.0, DT_L, CACHE / "pair.f32")
+    fc = np.fromfile(CACHE / "pair.f32", np.float32)
+    out = dict(j=j, i=ii, theta1_deg=[float(np.degrees(v)) for v in s[:, 0]], theta2_deg=float(np.degrees(s[0, 1])), grid_step_deg=360 / M,
+               flip_cpu64=[float(v) for v in fc], flip_gpu32=[float(fg[j, i]) for i in ii], dt=DT_L, T=60.0)
+    dump(ST / "pair.json", out); log("pair:", out["flip_cpu64"], out["flip_gpu32"])
+
+
 # ----------------------------------------------------------------------------------------------- validation
 def rhs_shinbrot(t, y):
     """independent right-hand side (Shinbrot et al. 1992 eqs. B5-B6, mu = 1 + m1/m2 = 2), vectorised over pendulums"""
@@ -420,7 +435,7 @@ def stage_gpucheck():
 
 # ----------------------------------------------------------------------------------------------- results
 def stage_results():
-    S = {n: load(ST / f"{n}.json") for n in ("fan", "dial", "energy", "flipmap", "friction", "restart", "validate") if (ST / f"{n}.json").exists()}
+    S = {n: load(ST / f"{n}.json") for n in ("fan", "dial", "energy", "flipmap", "friction", "restart", "pair", "validate") if (ST / f"{n}.json").exists()}
     if (ST / "gpucheck.json").exists(): S["gpucheck"] = load(ST / "gpucheck.json")
     P = {}
 
@@ -466,6 +481,12 @@ def stage_results():
     if "restart" in S:
         rs = S["restart"]; put("RESTART_T", rs["t_restart"], "restart.t_restart", "s"); put("RESTART_SPLIT_AFTER", rs["split_after_restart"], "restart.split_after_restart", "s")
         put("RESTART_ROUND_ERR", rs["max_rounding_error"], "restart.max_rounding_error", "rad or rad/s"); put("RESTART_GAP_M", rs["bob_gap_after_rounding_m"], "restart.bob_gap_after_rounding_m", "m")
+    if "pair" in S:
+        pr = S["pair"]
+        for k in (0, 1):
+            put(f"SH3_PAIR_TH1_{k}", pr["theta1_deg"][k], "pair.theta1_deg", "deg"); put(f"SH3_PAIR_FLIP64_{k}", pr["flip_cpu64"][k], "pair.flip_cpu64", "s")
+            put(f"SH3_PAIR_FLIP32_{k}", pr["flip_gpu32"][k], "pair.flip_gpu32", "s")
+        put("SH3_PAIR_TH2", pr["theta2_deg"], "pair.theta2_deg", "deg"); put("MAP_GRID_STEP_DEG", pr["grid_step_deg"], "pair.grid_step_deg", "deg")
     if "friction" in S: put("FRICTION_SPLIT", S["friction"]["split_t"], "friction.split_t", "s"); put("FRICTION_C", S["friction"]["c"], "friction.c", "1/s")
     if "gpucheck" in S:
         g = S["gpucheck"]
@@ -492,12 +513,12 @@ def stage_results():
     dump(RES / "run_meta.json", meta); log(f"results: {len(P)} placeholders, commit {commit}")
 
 
-STAGES = dict(restart=stage_restart, fan=stage_fan, dial=stage_dial, energy=stage_energy, flipmap=stage_flipmap, friction=stage_friction,
+STAGES = dict(pair=stage_pair, restart=stage_restart, fan=stage_fan, dial=stage_dial, energy=stage_energy, flipmap=stage_flipmap, friction=stage_friction,
               validate=stage_validate, gpucheck=stage_gpucheck, results=stage_results)
 if __name__ == "__main__":
     args = [a for a in sys.argv[1:] if not a.startswith("--")] or ["all"]
     if args == ["all"]:
-        args = ["fan", "dial", "energy", "flipmap", "friction", "restart", "validate", "results"]
+        args = ["fan", "dial", "energy", "flipmap", "friction", "restart", "pair", "validate", "results"]
     for a in args:
         t0 = time.time(); skipped = done(a) and a not in ("results", "gpucheck"); STAGES[a](); dt_ = time.time() - t0; log(f"{a} done in {dt_:.0f} s")
         if not skipped and a != "results":
